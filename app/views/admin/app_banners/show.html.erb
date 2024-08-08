@@ -1,0 +1,46 @@
+<!-- Page Content -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <p id="notice" style="color: orange;"><%= notice %></p>
+      <div class="col-lg-12">
+        <h2 class="page-header" style="margin: 10px 0 15px !important;">Showing App Banner</h2>
+      </div>
+
+      <!-- App Banner Details Table -->
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Image Url</th>
+            <th>Action Url</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @appBanner.id %></td>
+            <td><a href="<%= @appBanner.image_url %>"><%= @appBanner.image_url %></a></td>
+            <td><%= @appBanner.action_url %></td>
+            <td>
+              <% if @appBanner.status == false %>
+                ❌
+              <% else %>
+                ✔️
+              <% end %>
+            </td>
+            <td><%= @appBanner.created_at %></td>
+            <td><%= @appBanner.updated_at %></td>
+            <td class="app-banner-action" style="display: flex;gap:5px;">
+              <%= link_to 'Edit', edit_admin_app_banner_path(@appBanner), class: "btn btn-warning" %>
+              <%= button_to 'Delete', admin_app_banner_path(@appBanner), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

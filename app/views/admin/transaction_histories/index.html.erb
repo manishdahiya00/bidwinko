@@ -1,0 +1,45 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <p id="notice" style="color:orange;"><%= notice %></p>
+      <div class="col-lg-12">
+        <h2 class="page-header" style="margin: 10px 0 15px !important;">Listing Transaction Histories</h2>
+      </div>
+      <% if @transactionHistories.present? %>
+        <table class="table table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>User</th>
+              <th>Amount</th>
+              <th>Payment Id</th>
+              <th>Order Id</th>
+              <th>Receipt</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactionHistories.each do |transactionHistory| %>
+              <tr>
+                <td><%= transactionHistory.id %></td>
+                <td>BUY BIDS</td>
+                <td><a href="/admin/users/<%= transactionHistory.user_id %>"><%= transactionHistory.user.social_email %></a></td>
+                <td><%= transactionHistory.amount %></td>
+                <td><%= transactionHistory.payment_id %></td>
+                <td><%= transactionHistory.order_id %></td>
+                <td><%= transactionHistory.receipt %></td>
+                <td><%= transactionHistory.created_at.strftime("%d/%m/%y %I:%M %p") %></td>
+                <td><%= transactionHistory.updated_at.strftime("%d/%m/%y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= will_paginate @transactionHistories %>
+      <% else %>
+        <h1 class="not-found">No Transaction History Found</h1>
+      <% end %>
+    </div>
+  </div>
+</div>

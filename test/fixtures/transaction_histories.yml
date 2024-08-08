@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  payment_id: MyString
+  receipt: MyString
+  order_id: MyString
+  amount: MyString
+  number_of_bids: MyString
+
+two:
+  user: two
+  payment_id: MyString
+  receipt: MyString
+  order_id: MyString
+  amount: MyString
+  number_of_bids: MyString

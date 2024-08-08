@@ -1,0 +1,181 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <p id="notice" style="color:orange;"><%= notice %></p>
+      <div class="col-lg-12 d-flex flex-row">
+        <h2 class="page-header" style="margin: 10px 0 15px !important;">User Details
+        </h2>
+      </div>
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Device Id</th>
+            <th>Device Type</th>
+            <th>Device Name</th>
+            <th>Social Type</th>
+            <th>Social Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @user.id %></td>
+            <td><%= @user.device_id %></td>
+            <td><%= @user.device_type %></td>
+            <td><%= @user.device_name %></td>
+            <td><%= @user.social_type %></td>
+            <td><%= @user.social_id %></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Social Name</th>
+            <th>Social Email</th>
+            <th>Social Image</th>
+            <th>Ad Id</th>
+            <th>Refer Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @user.social_name %></td>
+            <td><%= @user.social_email %></td>
+            <td><img style="width:20px;" src="<%=@user.try(:social_img_url)%>" onerror="this.onerror=null;this.src='https://cdn.pixabay.com/photo/2014/03/24/17/21/wrong-295503_640.png';" /></td>
+            <td><%= @user.advertising_id %></td>
+            <td><%= @user.refer_code %></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Version Name / Version Code</th>
+            <th>Utm Source</th>
+            <th>Utm Medium</th>
+            <th>Utm Term</th>
+            <th>Utm Content</th>
+            <th>Utm Campaign</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @user.version_name %> / <%= @user.version_code %></td>
+            <td><%= @user.utm_source %></td>
+            <td><%= @user.utm_medium %></td>
+            <td><%= @user.utm_term %></td>
+            <td><%= @user.utm_content %></td>
+            <td><%= @user.utm_campaign %></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Referal Url</th>
+            <th>Source Ip</th>
+            <th>Security Token</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @user.referrer_url %></td>
+            <td><%= @user.source_ip %></td>
+            <td><%= @user.security_token %></td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>App Opens</h3>
+      <% if @appOpens.any? %>
+        <table class="table table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Source IP</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @appOpens.each do |appOpen| %>
+              <tr>
+                <td><%= appOpen.id %></td>
+                <td><%= appOpen.source_ip %></td>
+                <td><%= appOpen.created_at.strftime("%d/%m/%y %I:%M %p") %></td>
+                <td><%= appOpen.updated_at.strftime("%d/%m/%y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= will_paginate @appOpens %>
+      <% else %>
+        <h3>No App Opens Found</h3>
+      <% end %>
+      <h3>User Bids</h3>
+      <% if @userBids.any? %>
+        <table class="table table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Bids</th>
+              <th>Offer</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @userBids.each do |userBid| %>
+              <tr>
+                <td><%= userBid.id %></td>
+                <td><%= userBid.bids %></td>
+                <td><a href="/admin/bid_offers/<%= userBid.bid_offer_id %>"><%= userBid.bid_offer.offer_name %></a></td>
+                <td><%= userBid.created_at.strftime("%d/%m/%y %I:%M %p") %></td>
+                <td><%= userBid.updated_at.strftime("%d/%m/%y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= will_paginate @userBids %>
+      <% else %>
+        <h3>No App Opens Found</h3>
+      <% end %>
+      <h3>Transaction Histories</h3>
+      <% if @transactionHistories.present? %>
+        <table class="table table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>User</th>
+              <th>Amount</th>
+              <th>Payment Id</th>
+              <th>Order Id</th>
+              <th>Receipt</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactionHistories.each do |transactionHistory| %>
+              <tr>
+                <td><%= transactionHistory.id %></td>
+                <td>BUY BIDS</td>
+                <td><a href="/admin/users/<%= transactionHistory.user_id %>"><%= transactionHistory.user.social_email %></a></td>
+                <td><%= transactionHistory.amount %></td>
+                <td><%= transactionHistory.payment_id %></td>
+                <td><%= transactionHistory.order_id %></td>
+                <td><%= transactionHistory.receipt %></td>
+                <td><%= transactionHistory.created_at.strftime("%d/%m/%y %I:%M %p") %></td>
+                <td><%= transactionHistory.updated_at.strftime("%d/%m/%y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= will_paginate @transactionHistories %>
+      <% else %>
+        <h1 class="not-found">No Transaction History Found</h1>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<!-- Page Content -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <p id="notice" style="color: orange;"><%= notice %></p>
+      <div class="col-lg-12">
+        <h2 class="page-header" style="margin: 10px 0 15px !important;">Showing Bid Offer</h2>
+      </div>
+      <!-- App Banner Details Table -->
+      <table class="table table-responsive table-bordered">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Offer Name</th>
+            <th>Offer Price</th>
+            <th>Image Url</th>
+            <th>Video Url</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @bidOffer.id %></td>
+            <td><%= @bidOffer.offer_name %></td>
+            <td><%= @bidOffer.offer_price %></td>
+            <td><% @bidOffer.offer_image_url.split(",").each do |image| %><img style="width:40px;" src="<%= image %>" onerror="this.onerror=null;this.src='https://cdn.pixabay.com/photo/2014/03/24/17/21/wrong-295503_640.png';" /><% end %></td>
+            <td><a href="<%= @bidOffer.offer_video_url %>"><%= @bidOffer.offer_video_url %></a></td>
+            <td>
+              <% if @bidOffer.status == false %>
+                ❌
+              <% else %>
+                ✔️
+              <% end %>
+            </td>
+            <td><%= @bidOffer.started_at %></td>
+            <td><%= @bidOffer.ended_at %></td>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>

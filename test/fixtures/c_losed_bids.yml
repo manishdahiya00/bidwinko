@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bid_offer: one
+  winning_bid: MyString
+  winner1: MyString
+  winner2: MyString
+  winner3: MyString
+
+two:
+  bid_offer: two
+  winning_bid: MyString
+  winner1: MyString
+  winner2: MyString
+  winner3: MyString

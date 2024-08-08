@@ -1,0 +1,43 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <p id="notice" style="color:orange;"><%= notice %></p>
+      <div class="col-lg-12">
+        <h2 class="page-header" style="margin: 10px 0 15px !important;">Listing Users Bids</h2>
+      </div>
+      <% if @closedBids.present? %>
+        <table class="table table-responsive table-bordered">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>WInning Bid</th>
+              <th>Winner 1</th>
+              <th>Winner 2</th>
+              <th>Winner 3</th>
+              <th>Bid Offer</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @closedBids.each do |bids| %>
+              <tr>
+                <td><%= bids.id %></td>
+                <td><%= eval(bids.lowest_bid)[:bid] %></td>
+                <td><a href="/admin/users/<%= bids.winners.first["id"] %>"><%= User.find_by(id: bids.winners.first["id"]).social_email %></a></td>
+                <td><a href="/admin/users/<%= bids.winners.second["id"] %>"><%= User.find_by(id: bids.winners.second["id"]).social_email %></a></td>
+                <td><a href="/admin/users/<%= bids.winners.third["id"] %>"><%= User.find_by(id: bids.winners.third["id"]).social_email %></a></td>
+                <td><a href="/admin/bid_offers/<%= bids.bid_offer_id %>"><%= bids.bid_offer.offer_name %></a></td>
+                <td><%= bids.created_at.strftime("%d/%m/%y %I:%M %p") %></td>
+                <td><%= bids.updated_at.strftime("%d/%m/%y %I:%M %p") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= will_paginate @closedBids %>
+      <% else %>
+        <h1 class="not-found">No Closed Bids Found</h1>
+      <% end %>
+    </div>
+  </div>
+</div>
