@@ -4,7 +4,7 @@
     <h2 class="page-header">New Bid Offer</h2>
   </div>
 </div>
-<%= form_for(@bidOffer,url: admin_bid_offers_path) do |f| %>
+<%= form_for(@bidOffer, url: admin_bid_offers_path) do |f| %>
 <% if @bidOffer.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@bidOffer.errors.count, "error") %> prohibited this bidOffer from being saved:</h2>
@@ -39,7 +39,7 @@
             </div>
             <div class="form-group">
               <label>Status</label>
-              <%= f.select :status, options_for_select([['Active', true], ['Inactive', false]], selected: f.object.status),{}, {class: 'form-control'} %>
+              <%= f.select :status, options_for_select([["Active", true], ["Inactive", false]], selected: f.object.status), {}, { class: "form-control" } %>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Offer</button>
@@ -58,11 +58,11 @@
             <div class="form-group">
               <label>endedAt</label><br>
               <%= f.datetime_select :ended_at, class: "form-control", placeholder: "Enter ended_at", :required => true %>
-              <%#= f.datetime_select :ended_at, :ampm => true, :minute_step => 15 %>
+              <% #= f.datetime_select :ended_at, :ampm => true, :minute_step => 15 %>
             </div>
             <div class="form-group">
               <label>offerDescription</label>
-              <%= f.text_area :offer_desc ,class: "form-control", placeholder: "Enter offerDescription", :required => true %>
+              <%= f.text_area :offer_desc, class: "form-control", placeholder: "Enter offerDescription", :required => true %>
             </div>
 
           </div>

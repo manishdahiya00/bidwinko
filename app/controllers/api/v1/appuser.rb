@@ -566,6 +566,8 @@ module API
             res = JSON.parse(response.body)
             puts res
             if res["short_url"].present?
+              @total_bids = user.total_bids.to_i + plan.number_of_bids.to_i
+              user.update(total_bids: @total_bids)
               { status: 200, message: MSG_SUCCESS, url: res["short_url"] }
             else
               { status: 500, message: MSG_ERROR, error: "NO URL PRESENT" }
