@@ -99,7 +99,7 @@ module API
             user = valid_user(params[:userId], params[:securityToken])
             return { status: 500, message: INVALID_USER } unless user.present?
             completed_offers = []
-            BidOffer.completed.each do |offer|
+            BidOffer.completed.limit(10).each do |offer|
               completed_offers << {
                 id: offer.id,
                 offerName: offer.offer_name,
@@ -481,18 +481,20 @@ module API
             return { status: 500, message: INVALID_USER } unless user.present?
             winner_details = []
             ClosedBid.order(created_at: :desc).limit(30).each do |winner|
-              lowest_bid_detail = eval(winner.lowest_bid)
-              user_detail = User.find_by(id: lowest_bid_detail[:user])
-              bid_offer = BidOffer.find_by(id: winner.bid_offer_id)
-              winner_details << {
-                user_Name: user_detail.social_name,
-                user_Image: user_detail.social_img_url,
-                product_Name: bid_offer.offer_name,
-                product_Image: bid_offer.offer_image_url.split(",").first,
-                price: bid_offer.offer_price,
-                winnning_Bid: lowest_bid_detail[:bid],
-                location: user_detail.address,
-              }
+              if winner.lowest_bid
+                lowest_bid_detail = eval(winner.lowest_bid)
+                user_detail = User.find_by(id: lowest_bid_detail[:user])
+                bid_offer = BidOffer.find_by(id: winner.bid_offer_id)
+                winner_details << {
+                  user_Name: user_detail.social_name,
+                  user_Image: user_detail.social_img_url,
+                  product_Name: bid_offer.offer_name,
+                  product_Image: bid_offer.offer_image_url.split(",").first,
+                  price: bid_offer.offer_price,
+                  winnning_Bid: lowest_bid_detail[:bid],
+                  location: user_detail.address,
+                }
+              end
             end
 
             { message: MSG_SUCCESS, status: 200, winner_details: winner_details || [] }
@@ -514,7 +516,7 @@ module API
           begin
             user = valid_user(params[:userId], params[:securityToken])
             return { status: 500, message: INVALID_USER } unless user.present?
-            { status: 200, message: MSG_SUCCESS, referralCode: user.refer_code, totalBids: user.total_bids, inviteUrl: "http://192.168.1.31:5000/invite" }
+            { status: 200, message: MSG_SUCCESS, referralCode: user.refer_code, totalBids: user.total_bids, inviteUrl: "https://www.bidwin.co.in/invite" }
           rescue Exception => e
             Rails.logger.info "API Exception-#{Time.now}-appInvite-#{params.inspect}-Error-#{e}"
             { status: 500, message: MSG_ERROR, error: e }
@@ -554,7 +556,7 @@ module API
                 partial_payment: false,
                 additional_field1: "",
                 additional_field2: "",
-                redirect_url: "http://192.168.1.46:5000",
+                redirect_url: "https://www.bidwin.co.in/payment",
                 dueDate: Date.tomorrow,
               }.to_json,
               {

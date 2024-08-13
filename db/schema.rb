@@ -64,6 +64,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_05_061807) do
   create_table "closed_bids", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "bid_offer_id", null: false
     t.string "lowest_bid"
+    t.string "winner1_city", default: "New Delhi"
+    t.string "winner2_city", default: "New Delhi"
+    t.string "winner3_city", default: "New Delhi"
+    t.string "winner1_state", default: "Delhi"
+    t.string "winner2_state", default: "Delhi"
+    t.string "winner3_state", default: "Delhi"
     t.json "winners"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

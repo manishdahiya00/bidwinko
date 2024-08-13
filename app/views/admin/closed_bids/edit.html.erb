@@ -1,0 +1,69 @@
+<div id="page-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header">New Bid Offer</h2>
+    </div>
+  </div>
+  <%= form_with(model: @closedBid,url: admin_closed_bid_path) do |f| %>
+    <% if @closedBid.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@closedBid.errors.count, "error") %> prohibited this winner from being saved:</h2>
+        <ul>
+          <% @closedBid.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Basic Form Elements
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Winner 1 City -<% if @closedBid.winners.first.present? %>  <%= User.find_by(id: @closedBid.winners.first["id"]).social_name %><% else %> UNDEFINED <% end %></label>
+                  <%= f.text_field :winner1_city, class: "form-control", placeholder: "Enter offerName", :required => true %>
+                </div>
+                <div class="form-group">
+                  <label>Winner 2 City -<% if @closedBid.winners.second.present? %> <%= @closedBid.winners.second["name"] %><% else %> UNDEFINED <% end %></label>
+                  <%= f.text_field :winner2_city, class: "form-control", placeholder: "Enter offerPrice", :required => true %>
+                </div>
+                <div class="form-group">
+                  <label>Winner 3 City -<% if @closedBid.winners.third.present? %>  <%= @closedBid.winners.third["name"] %><% else %> UNDEFINED <% end %></label><br>
+                  <%= f.text_field :winner3_city, class: "form-control", placeholder: "Enter started_at", :required => true %>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Reset</button>
+              </div>
+              <!-- /.col-lg-6 (nested) -->
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Winner 1 State -<% if @closedBid.winners.first.present? %>  <%= @closedBid.winners.first["name"] %><% else %> UNDEFINED <% end %></label>
+                  <%= f.text_field :winner1_state, class: "form-control", placeholder: "Enter offer_imageurl", :required => true %>
+                </div>
+                <div class="form-group">
+                  <label>Winner 2 State -<% if @closedBid.winners.second.present? %>  <%= @closedBid.winners.second["name"] %><% else %> UNDEFINED <% end %></label>
+                  <%= f.text_field :winner2_state, class: "form-control", placeholder: "Enter offer_videourl" %>
+                </div>
+                <div class="form-group">
+                  <label>Winner 3 State -<% if @closedBid.winners.third.present? %>  <%= @closedBid.winners.third["name"] %><% else %> UNDEFINED <% end %></label><br>
+                  <%= f.text_field :winner3_state, class: "form-control", placeholder: "Enter ended_at", :required => true %>
+                </div>
+              </div>
+              <!-- /.col-lg-6 (nested) -->
+            </div>
+            <!-- /.row (nested) -->
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+      </div>
+      <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+  <% end %>
