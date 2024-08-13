@@ -50,7 +50,6 @@ module API
                 startDate: offer.started_at.to_i,
               }
             end
-            puts upcoming_offers
             { status: 200, message: MSG_SUCCESS, offers: upcoming_offers || [] }
           rescue Exception => e
             Rails.logger.info "API Exception-#{Time.now}-upcomingBids-#{params.inspect}-Error-#{e}"
@@ -143,7 +142,6 @@ module API
               totalBid: 20,
               bidder: bidder_images || [],
             }
-            puts bid_hash
             { status: 200, message: MSG_SUCCESS, bidDetails: bid_hash, totalBids: user.total_bids }
           rescue Exception => e
             Rails.logger.info "API Exception-#{Time.now}-bidDetails-#{params.inspect}-Error-#{e}"
@@ -566,7 +564,6 @@ module API
               }
             )
             res = JSON.parse(response.body)
-            puts res
             if res["short_url"].present?
               @total_bids = user.total_bids.to_i + plan.number_of_bids.to_i
               user.update(total_bids: @total_bids)
