@@ -144,7 +144,7 @@ module API
               bidder: bidder_images || [],
             }
             puts bid_hash
-            { status: 200, message: MSG_SUCCESS, bidDetails: bid_hash }
+            { status: 200, message: MSG_SUCCESS, bidDetails: bid_hash, totalBids: user.total_bids }
           rescue Exception => e
             Rails.logger.info "API Exception-#{Time.now}-bidDetails-#{params.inspect}-Error-#{e}"
             { status: 500, message: MSG_ERROR }
@@ -243,7 +243,7 @@ module API
                 plans: plans_data,
               }
             end
-            { status: 200, message: MSG_SUCCESS, bidPlans: bid_plans || [] }
+            { status: 200, message: MSG_SUCCESS, totalBids: user.total_bids, bidPlans: bid_plans || [] }
           rescue Exception => e
             Rails.logger.info "API Exception-#{Time.now}-buyBids-#{params.inspect}-Error-#{e}"
             { status: 500, message: MSG_ERROR }
