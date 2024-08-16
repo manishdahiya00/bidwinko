@@ -114,9 +114,9 @@ module API
             source_ip = request.ip
             forceUpdate = false
             if user.last_check_in.nil? || user.last_check_in < 24.hours.ago
-              total_bids = user.total_bids.to_i + 3
+              total_bids = user.total_bids.to_i + 8
               user.update(total_bids: total_bids, last_check_in: Time.now)
-              user.transaction_histories.create(order_id: SecureRandom.hex(6), number_of_bids: "3", title: "Sign In Bonus")
+              user.transaction_histories.create(order_id: SecureRandom.hex(6), number_of_bids: "8", title: "Sign In Bonus")
             end
             user.app_opens.create(source_ip: source_ip, version_name: params[:versionName], version_code: params[:versionCode])
             { status: 200, message: MSG_SUCCESS, appUrl: "", forceUpdate: forceUpdate, totalBids: user.total_bids }
